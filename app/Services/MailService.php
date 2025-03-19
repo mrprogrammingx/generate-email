@@ -72,15 +72,18 @@ class MailService
         throw new RequestException($response);
     }
 
-    public function getLatestMessage(string $subject): string
+    public function getLatestMessage(string $email, string $subject): string
     {
         ($this->emailExists()) ? $this->email : $this->createNewEmail();
         ($this->tokenExists()) ? $this->token : $this->getTokenForEmail();
 
         $headers = [
-            'Authorization' => "Bearer  $this->token",
+            'Authorization' => "Bearer $this->token",
         ];
         
+        // var_dump($headers);
+        // var_dump($this->email);
+
         $response = Http::withHeaders($headers)->get("{$this->host}messages");
 
         if (!$response->successful()) {
@@ -89,7 +92,7 @@ class MailService
 
         $messages = collect($response->json('hydra:member'));
 
-        $filteredMessages = $messages->where('from.address', $this->email)
+        $filteredMessages = $messages->where('from.address', $email)
             ->where('subject', $subject)
             ->sortByDesc('createdAt');
 

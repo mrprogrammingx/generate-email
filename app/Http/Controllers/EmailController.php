@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\MailService;
+use App\Http\Requests\LatestEmailRequest;
 
 class EmailController extends Controller
 {
@@ -22,10 +23,10 @@ class EmailController extends Controller
         return response()->json($this->mailService->getTokenForEmail(), 200);
     }
 
-    public function getLatestMessage(): ?string
+    public function getLatestMessage(LatestEmailRequest $request): ?string
     {
-        $subject = '';
+        $data = $request->validated();
 
-        return response()->json($this->mailService->getLatestMessage($subject), 200);
+        return response()->json($this->mailService->getLatestMessage($data['email'], $data['subject']), 200);
     }
 }
