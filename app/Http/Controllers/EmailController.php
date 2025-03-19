@@ -10,8 +10,6 @@ class EmailController extends Controller
 
     public function __construct(public readonly MailService $mailService)
     {
-        // $this->createNewEmail();
-        // $this->getTokenForEmail();
     }
 
     public function createNewEmail()
