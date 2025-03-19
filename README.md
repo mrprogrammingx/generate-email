@@ -31,7 +31,7 @@ You can add it to your .env(optional)
 
 ### 3. Fetch the Latest Message by Subject
 ```php
-127.0.0.1/getLatestMessage
+127.0.0.1/getLatestMessage?subject=example&email=hello@example.com
 ```
 
 ## Methods
