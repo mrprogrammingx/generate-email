@@ -75,7 +75,7 @@ class MailService
     public function getLatestMessage(string $subject): string
     {
         ($this->emailExists()) ? $this->email : $this->createNewEmail();
-        ($this->tokenExists()) ? $this->email : $this->getTokenForEmail();
+        ($this->tokenExists()) ? $this->token : $this->getTokenForEmail();
 
         $headers = [
             'Authorization' => "Bearer  $this->token",
